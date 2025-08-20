@@ -15,7 +15,6 @@
     position: relative;
     min-height: calc(100vh - #{calc($topbar-height + 1px)});
     transition: $transition-base;
-    padding: 0 calc($grid-gutter-width * 0.5);
 }
 
 
