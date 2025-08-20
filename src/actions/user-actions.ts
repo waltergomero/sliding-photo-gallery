@@ -11,7 +11,7 @@ import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import bcryptjs from "bcryptjs";
-import  prisma  from '@/prisma/prisma';
+import  prisma  from '../../prisma/prisma';
 import { formatError } from '@/lib/utils';
 import { z } from 'zod';
 import { PAGE_SIZE } from '@/lib/constants';
@@ -167,7 +167,7 @@ export async function deleteUser(id: string) {
 // create new user
 export async function createNewUser(formData: FormData) {
   try {
-
+    console.log('Creating new user with form data:', formData);
     const  first_name = formData.get('first_name');
     const  last_name = formData.get('last_name');
     const  email = formData.get('email');
@@ -292,3 +292,4 @@ export async function updateUser(formData: FormData) {
     return { success: false, message: error.message };
   }
 }
+//++++-

@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import Link from 'next/link';
-import { fetchOneImagePerCategory } from '@/actions/gallery-actions';
+import { fetchOneImagePerCategoryLimited } from '@/actions/gallery-actions';
 //import '@/assets/gallery/css/custom.css';
 
 
 const HomePage = async () => {
-    const categories = await fetchOneImagePerCategory();
+    const categories = await fetchOneImagePerCategoryLimited();
   return (
     <Fragment>
       <div>
@@ -29,7 +29,7 @@ const HomePage = async () => {
               <a href="https://pentaxphotogallery.com/collection/?collection_id=" className="btn btn-featured dropdown-toggle">FEATURED COLLECTION</a>
           </div>
           <div className="dropdown">
-              <a href="https://pentaxphotogallery.com/category/?cat_id= 184" className="btn btn-featured dropdown-toggle">FEATURED CATEGORY</a>
+              <a href="/categories" className="btn btn-featured dropdown-toggle">FEATURED CATEGORY</a>
           </div>
         </div>
         <div className="home-gallery">

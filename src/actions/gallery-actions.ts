@@ -143,6 +143,27 @@ export async function fetchOneImagePerCategory() {
   try {
     const _images = await prisma.UserImages.findMany({
       distinct: ['category_name'],
+      select: {
+        id: true,
+        src: true,
+        caption: true,
+        category_name: true
+      },
+      orderBy: {
+        category_name: 'asc',
+      },
+    });
+    const images = JSON.parse(JSON.stringify(_images));
+    return images;
+  } catch (err) {
+    return({error: "Failed to fetch one image per category! " + err});
+  }
+}
+
+export async function fetchOneImagePerCategoryLimited() {
+  try {
+    const _images = await prisma.UserImages.findMany({
+      distinct: ['category_name'],
       where: {
         format: 'landscape',
       },
@@ -155,7 +176,7 @@ export async function fetchOneImagePerCategory() {
       orderBy: {
         category_name: 'asc',
       },
-      take: 4
+      take: 8
     });
     const images = JSON.parse(JSON.stringify(_images));
     return images;
@@ -163,7 +184,6 @@ export async function fetchOneImagePerCategory() {
     return({error: "Failed to fetch one image per category! " + err});
   }
 }
-
 
 
 

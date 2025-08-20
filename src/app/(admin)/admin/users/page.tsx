@@ -1,0 +1,38 @@
+import React from 'react';
+import PageBreadcrumb from '@/components/PageBreadcrumb'
+import { Col, Container, Row } from 'react-bootstrap'
+import { getAllUsers } from '@/actions/user-actions';
+import { UsersPageProps } from '@/types/user';
+import UsersTable from '@/components/admin/users/userstable';
+
+export const metadata = { 
+  title: "Status Management",
+  description: "Manage status records in the photo gallery system"
+}
+
+
+const UserPage = async ({ searchParams }: UsersPageProps) => {
+
+
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const searchText = params.query || '';
+
+  const usersData = await getAllUsers({ 
+    page, 
+    query: searchText 
+  });
+
+  return (
+    <Container fluid>
+      <PageBreadcrumb title="Static Tables" subtitle="Tables" />
+      <Row className="justify-content-center">
+        <Col xxl={10}>
+          <UsersTable users={usersData} />
+        </Col>
+      </Row>
+    </Container>
+  )
+}
+
+export default UserPage
