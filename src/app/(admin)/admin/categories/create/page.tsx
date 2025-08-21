@@ -1,4 +1,4 @@
-import UserCreateForm from '@/components/admin/users/usercreateform'
+import CategoryCreateForm from '@/components/admin/categories/categorycreateform'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { Col, Container, Row } from 'react-bootstrap'
 
@@ -6,12 +6,11 @@ const CreateUserPage = () => {
   return (
     <>
       <Container fluid>
-        <PageBreadcrumb title="Create New User Page" subtitle="User" />
-
+        <PageBreadcrumb title="Create New Category Page" subtitle="Category" />
         <Container>
            <Row className="justify-content-center">
             <Col xl={8}>
-              <UserCreateForm />
+              <CategoryCreateForm />
             </Col>
           </Row>
         </Container>

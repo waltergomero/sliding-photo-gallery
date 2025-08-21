@@ -1,0 +1,64 @@
+import Link from "next/link";
+import { deleteUser } from "@/actions/user-actions";
+import { Button } from "react-bootstrap";
+import { TbArrowRight, TbDotsVertical, TbEdit, TbEye, TbTrash, TbPlus, TbCircle} from 'react-icons/tb';
+
+interface UsersButtonProps {
+  id: string;
+}
+
+export function CreateUserBtn() {
+  return (
+    <Link href="/admin/users/create" className="btn btn-primary">
+      <span className="hidden md:block">Add New User</span>{" "}
+      <TbPlus size={24} />
+    </Link>
+  );
+}
+
+export function EditUserBtn({ id }: UsersButtonProps) {
+  return (
+    <Link
+      href={`/admin/users/${id}`}>
+    <Button variant="light" size="sm" className="btn-icon rounded-circle">
+        <TbEdit className="fs-lg" />
+    </Button>
+    </Link>
+  );
+}
+
+export function DeleteUserBtn({ id }: UsersButtonProps) {
+  const deleteUserWithId = deleteUser.bind(null, id);
+  return (
+    <form action={deleteUserWithId} className="d-inline">
+      <Button variant="danger"
+        className="btn-icon rounded-circle"
+        type="submit"
+        title="Delete user"
+        aria-label={`Delete user ${id}`}
+      >
+        <TbTrash  className="fs-lg" />
+      </Button>
+    </form>
+  );
+}
+
+export function CancelUserBtn() {
+  return (
+    <Link
+      href="/admin/user"
+      className="flex h-10 items-center rounded-lg bg-gray-400 px-4 text-sm font-medium text-white transition-colors hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+    >
+      <span className="hidden md:block">Cancel</span>{" "}
+      <TbCircle className="h-6 md:ml-4" />
+    </Link>
+  );
+}
+
+export function SaveUserBtn() {
+  return (
+    <Button type="submit" variant="primary">Save User Information
+      <TbPlus size={24} />
+    </Button>
+  );
+}

@@ -1,17 +1,16 @@
-import UserCreateForm from '@/components/admin/users/usercreateform'
+import StatusCreateForm from '@/components/admin/status/statuscreateform'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { Col, Container, Row } from 'react-bootstrap'
 
-const CreateUserPage = () => {
+const CreateStatusPage = () => {
   return (
     <>
       <Container fluid>
-        <PageBreadcrumb title="Create New User Page" subtitle="User" />
-
+        <PageBreadcrumb title="Create New Status Page" subtitle="Status" />
         <Container>
            <Row className="justify-content-center">
             <Col xl={8}>
-              <UserCreateForm />
+              <StatusCreateForm />
             </Col>
           </Row>
         </Container>
@@ -20,4 +19,4 @@ const CreateUserPage = () => {
   )
 }
 
-export default CreateUserPage
+export default CreateStatusPage

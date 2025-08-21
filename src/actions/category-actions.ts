@@ -4,7 +4,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { categorySchema} from "@/lib/schema-validators";
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import  prisma  from '@/prisma/prisma';
+import  prisma  from '../../prisma/prisma';
 import { PAGE_SIZE } from '@/lib/constants';
 
 // Get all the categories
@@ -134,7 +134,7 @@ export async function createCategory(formData: FormData) {
 export async function updateCategory(formData: FormData) {
   noStore();
   try {
-    const id = formData.get("id");
+    const category_id = formData.get("category_id");
     const category_name = formData.get("category_name");
     const isactive = Boolean(formData.get("isactive"));
     const description = formData.get("description");
@@ -155,7 +155,7 @@ export async function updateCategory(formData: FormData) {
     });
 
     if (existingCategory) {
-      if (existingCategory.id != id) {
+      if (existingCategory.id != category_id) {
         return  {error: "already_exists",
                  message: `Category name "${category_name}"  already exists`};
       }
@@ -167,7 +167,7 @@ export async function updateCategory(formData: FormData) {
     };
     console.log("Category data to be updated:", data);
     await prisma.Category.update({
-      where: { id: id },
+      where: { id: category_id },
       data: data,
     });
 

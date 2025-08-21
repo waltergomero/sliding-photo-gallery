@@ -4,7 +4,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { statusSchema} from "@/schemas/validation-schemas";
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import  prisma  from '@/prisma/prisma';
+import  prisma  from '../../prisma/prisma';
 import { PAGE_SIZE } from '@/lib/constants';
 
 // Function to generate an array of numbers from 0 to 10
@@ -153,7 +153,7 @@ export async function createStatus(formData: FormData) {
 export async function updateStatus(formData: FormData) {
   noStore();
   try {
-    const id = formData.get("id");
+    const statusid = formData.get("statusid");
     const status_name = formData.get("status_name");
     const isactive = Boolean(formData.get("isactive"));
     const description = formData.get("description");
@@ -175,7 +175,7 @@ export async function updateStatus(formData: FormData) {
     });
 
     if (existingStatus) {
-      if (existingStatus.id != id) {
+      if (existingStatus.id != statusid) {
         return  {error: "already_exists",
                  message: `Status "${status_name}" with type ID "${typeid}" already exists`}; 
       }
@@ -188,7 +188,7 @@ export async function updateStatus(formData: FormData) {
     };
     console.log("Status data to be updated:", data);
     await prisma.Status.update({
-      where: { id: id },
+      where: { id: statusid },
       data: data,
     });
 

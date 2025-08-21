@@ -1,0 +1,64 @@
+import Link from "next/link";
+import { deleteStatus } from "@/actions/status-actions";
+import { Button } from "react-bootstrap";
+import { TbArrowRight, TbDotsVertical, TbEdit, TbEye, TbTrash, TbPlus, TbCircle} from 'react-icons/tb';
+
+interface StatusButtonProps {
+  id: string;
+}
+
+export function CreateStatusBtn() {
+  return (
+    <Link href="/admin/status/create" className="btn btn-primary">
+      <span className="hidden md:block">Add New Status</span>{" "}
+      <TbPlus size={24} />
+    </Link>
+  );
+}
+
+export function EditStatusBtn({ id }: StatusButtonProps) {
+  return (
+    <Link
+      href={`/admin/status/${id}`}>
+    <Button variant="light" size="sm" className="btn-icon rounded-circle">
+        <TbEdit className="fs-lg" />
+    </Button>
+    </Link>
+  );
+}
+
+export function DeleteStatusBtn({ id }: StatusButtonProps) {
+  const deleteStatusWithId = deleteStatus.bind(null, id);
+  return (
+    <form action={deleteStatusWithId} className="d-inline">
+      <Button variant="danger"
+        className="btn-icon rounded-circle"
+        type="submit"
+        title="Delete status"
+        aria-label={`Delete status ${id}`}
+      >
+        <TbTrash  className="fs-lg" />
+      </Button>
+    </form>
+  );
+}
+
+export function CancelStatusBtn() {
+  return (
+    <Link
+      href="/admin/status"
+      className="flex h-10 items-center rounded-lg bg-gray-400 px-4 text-sm font-medium text-white transition-colors hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+    >
+      <span className="hidden md:block">Cancel</span>{" "}
+      <TbCircle className="h-6 md:ml-4" />
+    </Link>
+  );
+}
+
+export function SaveStatusBtn() {
+  return (
+    <Button type="submit" variant="primary">Save Status Information
+      <TbPlus size={24} />
+    </Button>
+  );
+}

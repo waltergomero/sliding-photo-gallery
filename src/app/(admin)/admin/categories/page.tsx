@@ -1,38 +1,38 @@
 import React from 'react';
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { Col, Container, Row } from 'react-bootstrap'
-import { getAllUsers } from '@/actions/user-actions';
+import { getAllCategories } from '@/actions/category-actions';
 import { UsersPageProps } from '@/types/user';
-import UsersTable from '@/components/admin/users/userstable';
+import CategoryTable from '@/components/admin/categories/categoriestable';
 
 export const metadata = { 
-  title: "User Management",
-  description: "Manage user records in the photo gallery system"
+  title: "Category Management",
+  description: "Manage category records in the photo gallery system"
 }
 
 
-const UserPage = async ({ searchParams }: UsersPageProps) => {
+const CategoryPage = async ({ searchParams }: UsersPageProps) => {
 
 
   const params = await searchParams;
   const page = Number(params.page) || 1;
   const searchText = params.query || '';
 
-  const usersData = await getAllUsers({ 
+  const categoriesData = await getAllCategories({ 
     page, 
     query: searchText 
   });
 
   return (
     <Container fluid>
-      <PageBreadcrumb title="Users" subtitle="Users" />
+      <PageBreadcrumb title="Categories" subtitle="Categories" />
       <Row className="justify-content-center">
         <Col xxl={10}>
-          <UsersTable users={usersData} />
+          <CategoryTable categories={categoriesData} />
         </Col>
       </Row>
     </Container>
   )
 }
 
-export default UserPage
+export default CategoryPage

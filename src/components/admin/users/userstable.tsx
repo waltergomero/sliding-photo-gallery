@@ -1,18 +1,14 @@
 
-import { currency } from '@/helpers'
-import Link from 'next/link'
 import { Card, CardBody, CardHeader, CardTitle, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Table, Button } from 'react-bootstrap'
-import { TbArrowRight, TbDotsVertical, TbEdit, TbEye, TbTrash } from 'react-icons/tb';
 import { UserTableProps, User } from '@/types/user';
+import { EditUserBtn, DeleteUserBtn, CreateUserBtn } from './buttons';
 
 const UsersTable = ({ users }: UserTableProps) => {
   return (
     <Card>
       <CardHeader className="justify-content-between">
         <CardTitle> Users Table </CardTitle>
-            <Link href="/admin/users/create" className="btn btn-primary btn-sm"aria-label="Add new user">
-                <span className="hidden md:block">Add New User</span>{" "}
-            </Link>
+            <CreateUserBtn />
       </CardHeader>
 
       <CardBody>
@@ -23,8 +19,8 @@ const UsersTable = ({ users }: UserTableProps) => {
             <th scope="col">Last Name</th>
             <th scope="col">First Name</th>
             <th scope="col">Email</th>
-            <th scope="col">Is Active?</th>
             <th scope="col">Is Admin?</th>
+            <th scope="col">Is Active?</th>         
             <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -36,21 +32,15 @@ const UsersTable = ({ users }: UserTableProps) => {
                 <td>{user.first_name}</td>
                 <td>{user.email}</td>
                 <td>
-                  {user.isactive ? 'Yes' : 'No'}
-                </td>
-                <td>
                   {user.isadmin ? 'Yes' : 'No'}
                 </td>
                 <td>
-                <Button variant="light" size="sm" className="btn-icon rounded-circle">
-                    <TbEdit className="fs-lg" />
-                </Button>
-                <Button
-                    variant="danger"
-                    size="sm"
-                    className="btn-icon rounded-circle">
-                    <TbTrash className="fs-lg" />
-                </Button>
+                  {user.isactive ? 'Yes' : 'No'}
+                </td>
+                <td>
+                 <EditUserBtn id={user.id} />
+                 <span className="mx-1"></span>
+                 <DeleteUserBtn id={user.id} />
                 </td>
               </tr>
             ))}
