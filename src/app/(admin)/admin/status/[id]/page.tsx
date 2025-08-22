@@ -4,12 +4,13 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { getStatusById } from '@/actions/status-actions';
 import { notFound } from 'next/navigation';
 import StatusEditForm from '@/components/admin/status/statuseditform';
+import { requireAdmin } from '@/lib/auth-guard';  
 
 
 export const metadata= { title: "Status" }
 
 const EditStatusPage = async (props:any) => {
-
+ await requireAdmin();
     const { id } = await props.params;
     const status = await getStatusById(id);
 

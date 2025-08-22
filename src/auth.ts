@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import  prisma  from '../prisma/prisma';
-import { cookies } from 'next/headers';
+//import { cookies } from 'next/headers';
 import bcryptjs from "bcryptjs";
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -100,9 +100,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           });
         }
 
-        if (trigger === 'signIn' || trigger === 'signUp') {
-          const cookiesObject = await cookies();
-        }
+        // if (trigger === 'signIn' || trigger === 'signUp') {
+        //   const cookiesObject = await cookies();
+        // }
       }
 
       // Handle session updates

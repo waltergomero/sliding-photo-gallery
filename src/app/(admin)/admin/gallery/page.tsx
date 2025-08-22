@@ -4,7 +4,6 @@ import PageBreadcrumb from '@/components/PageBreadcrumb';
 import { requireAdmin } from '@/lib/auth-guard';
 import Link from 'next/link';
 
-
 export const metadata= { title: "Gallery" }
 
 const GalleryPage = async () => {

@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { getAllUsers } from '@/actions/user-actions';
 import { UsersPageProps } from '@/types/user';
 import UsersTable from '@/components/admin/users/userstable';
+import { requireAdmin } from '@/lib/auth-guard';  
 
 export const metadata = { 
   title: "User Management",
@@ -12,7 +13,7 @@ export const metadata = {
 
 
 const UserPage = async ({ searchParams }: UsersPageProps) => {
-
+ await requireAdmin();
 
   const params = await searchParams;
   const page = Number(params.page) || 1;

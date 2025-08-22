@@ -2,11 +2,13 @@ import React from 'react';
 import GalleryGrid from '@/components/admin/gallery/gallery-grid';
 import PageBreadcrumb from '@/components/PageBreadcrumb';
 import Link from 'next/link';
+import { requireAdmin } from '@/lib/auth-guard
 
 const GalleryPage = async ({params, searchParams}: { params: {id: string[]};
                                                      searchParams: {[key: string]: string | string[] | undefined}}) => {
     const _params = await params;
     const _searchParams = await searchParams;
+     await requireAdmin();
     
     // Dynamic route params
     const categoryName = _params.id ? decodeURIComponent(_params.id[0]) : 'All';

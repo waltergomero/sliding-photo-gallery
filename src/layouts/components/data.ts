@@ -75,7 +75,7 @@ export const userDropdownItems: UserDropdownItemType[] = [
   {
     label: 'Log Out',
     icon: TbLogout2,
-    url: '#',
+    url: '/api/auth/signout',
     class: 'text-danger fw-semibold',
   },
 ]

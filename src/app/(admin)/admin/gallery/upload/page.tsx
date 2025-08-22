@@ -3,12 +3,11 @@ import GalleryGrid from "@/components/admin/gallery/gallery-grid";
 import PageBreadcrumb from '@/components/PageBreadcrumb';
 import { fetchImages, } from '@/actions/gallery-actions';
 import { requireAdmin } from '@/lib/auth-guard';
-import Link from 'next/link';
-import UploadImagesForm from '@/components/admin/gallery/upload-images';
 import UploadImages from '@/components/admin/gallery/uploadImages';
 
 
 export const metadata= { title: "Gallery" }
+ await requireAdmin();
 
 
 const UploadPage = async () => {

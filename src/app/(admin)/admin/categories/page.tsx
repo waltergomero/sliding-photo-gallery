@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { getAllCategories } from '@/actions/category-actions';
 import { UsersPageProps } from '@/types/user';
 import CategoryTable from '@/components/admin/categories/categoriestable';
+import { requireAdmin } from '@/lib/auth-guard';
 
 export const metadata = { 
   title: "Category Management",
@@ -12,8 +13,7 @@ export const metadata = {
 
 
 const CategoryPage = async ({ searchParams }: UsersPageProps) => {
-
-
+ await requireAdmin();
   const params = await searchParams;
   const page = Number(params.page) || 1;
   const searchText = params.query || '';

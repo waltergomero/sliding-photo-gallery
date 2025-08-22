@@ -1,8 +1,10 @@
 import StatusCreateForm from '@/components/admin/status/statuscreateform'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap';
+import { requireAdmin } from '@/lib/auth-guard';
 
 const CreateStatusPage = () => {
+   await requireAdmin();
   return (
     <>
       <Container fluid>

@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { getAllStatus } from '@/actions/status-actions';
 import { StatusPageProps } from '@/types/status';
 import StatusTable from '@/components/admin/status/statustable';
+import { requireAdmin } from '@/lib/auth-guard';
 
 export const metadata = { 
   title: "Status Management",
@@ -12,7 +13,7 @@ export const metadata = {
 
 
 const StatusPage = async ({ searchParams }: StatusPageProps) => {
-
+ await requireAdmin();
 
   const params = await searchParams;
   const page = Number(params.page) || 1;

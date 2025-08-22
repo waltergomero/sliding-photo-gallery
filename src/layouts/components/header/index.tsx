@@ -5,11 +5,16 @@ import useScrollEvent from '@/hooks/useScrollEvent'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Alert, Button, Container, Nav, Navbar, NavbarBrand, NavbarCollapse, NavbarToggle, NavLink } from 'react-bootstrap'
-import { TbContrast } from 'react-icons/tb'
+import { TbContrast } from 'react-icons/tb';
+import { useSession } from "next-auth/react"
+import {SignOut}  from '@/components/auth/signout'
+
 
 const navItems = ['Home', 'Services', 'Features', 'Plans', 'Reviews', 'Blog', 'Contact']
 
 export default function Header() {
+  const { data: session } = useSession()
+
   const { theme, changeTheme } = useLayoutContext()
 
   const toggleTheme = () => {
@@ -47,12 +52,16 @@ export default function Header() {
                 <Button variant="link" className="btn-icon fw-semibold text-body me-2" onClick={toggleTheme}>
                   <TbContrast className="fs-22" />
                 </Button>
-                <Link href="/auth-sign-in" className="btn btn-link fw-semibold text-body ps-2">
-                  SIGN IN
+                <Link href="/admin" className="btn btn-link fw-semibold text-body ps-2">
+                  Admin Page
                 </Link>
-                <Link href="/auth-sign-up" className="btn btn-sm btn-primary ms-2">
-                  Sign Up
-                </Link>
+                {session ? (
+                  <SignOut />
+                ) : (
+                  <Link href="/signin" className="btn btn-sm btn-primary ms-2">
+                    Sign In
+                  </Link>
+                )}
               </div>
             </NavbarCollapse>
           </Container>

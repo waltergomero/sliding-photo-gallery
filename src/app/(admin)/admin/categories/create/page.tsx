@@ -1,8 +1,10 @@
 import CategoryCreateForm from '@/components/admin/categories/categorycreateform'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap';
+import { requireAdmin } from '@/db/auth-guard';
 
 const CreateUserPage = () => {
+   await requireAdmin();
   return (
     <>
       <Container fluid>

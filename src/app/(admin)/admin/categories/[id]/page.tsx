@@ -4,11 +4,13 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { fetchCategoryById } from '@/actions/category-actions';
 import { notFound } from 'next/navigation';
 import CategoryEditForm from '@/components/admin/categories/categoryeditform';
+import { requireAdmin } from '@/lib/auth-guard';
 
 
 export const metadata= { title: "Category" }
 
 const EditCategoryPage = async (props:any) => {
+   await requireAdmin();
 
     const { id } = await props.params;
     const category = await fetchCategoryById(id);

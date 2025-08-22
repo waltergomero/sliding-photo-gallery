@@ -1,8 +1,10 @@
 import UserCreateForm from '@/components/admin/users/usercreateform'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap';
+import { requireAdmin } from '@/lib/auth-guard';
 
-const CreateUserPage = () => {
+const CreateUserPage = async () => {
+  await requireAdmin();
   return (
     <>
       <Container fluid>
