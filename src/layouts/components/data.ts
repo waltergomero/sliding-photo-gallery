@@ -88,6 +88,10 @@ export const menuItems: MenuItemType[] = [
     icon: TbLayoutDashboard,
     url: '/dashboard',
   },
+  { key: 'gallery', label: 'Gallery', icon: TbStackFront, url: '/admin/gallery' },
+  { key: 'categories', label: 'Categories', icon: TbStackFront, url: '/admin/categories' },
+  { key: 'status', label: 'Status', icon: TbStackFront, url: '/admin/status' },
+  { key: 'users', label: 'Users', icon: TbStackFront, url: '/admin/users' },
   { key: 'landing', label: 'Landing Page', icon: TbStackFront, url: '/landing' },
   { key: 'custom', label: 'Custom Pages', isTitle: true },
   {
