@@ -6,6 +6,7 @@ import {
   createNewUserFormSchema,
   updateUserFormSchema
 } from '@/schemas/validation-schemas';
+import { unstable_noStore as noStore } from 'next/cache';
 import { signIn, signOut } from '@/auth';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { revalidatePath } from 'next/cache';
@@ -148,20 +149,15 @@ export async function getAllUsers({  limit = PAGE_SIZE,  page,  query, }: { limi
 
 // Delete a user
 export async function deleteUser(id: string) {
+  noStore();
+
   try {
-    await prisma.User.delete({ where: { id } });
-
+    await prisma.User.delete({ where: { id: id } });
     revalidatePath('/admin/users');
-
-    return {
-      success: true,
-      message: 'User deleted successfully',
-    };
+    redirect('/admin/users');
   } catch (error) {
-    return {
-      success: false,
-      message: formatError(error),
-    };
+    console.error('Error deleting user:', error);
+    throw error;
   }
 }
 // create new user

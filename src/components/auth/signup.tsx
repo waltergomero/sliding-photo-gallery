@@ -112,7 +112,7 @@ const SignUpPage = () => {
                                         <div className='text-center text-danger'>{data.message}</div>
                                         )}
 
-                            <p className="text-black text-center mt-4 mb-0">
+                            <p className="text-muted text-center mt-4 mb-0">
                                 Have an account?{' '}
                                 <Link href="/signin" className="text-secondary text-decoration-underline link-offset-3 fw-semibold">
                                     Sign In

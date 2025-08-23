@@ -1,10 +1,49 @@
+'use client';
+import React, {useState} from "react";
 import Link from "next/link";
 import { deleteUser } from "@/actions/user-actions";
-import { Button } from "react-bootstrap";
 import { TbArrowRight, TbDotsVertical, TbEdit, TbEye, TbTrash, TbPlus, TbCircle} from 'react-icons/tb';
+import { Button, Modal } from "react-bootstrap";
 
 interface UsersButtonProps {
   id: string;
+}
+
+export function DeleteUserBtn({ id }: UsersButtonProps) {
+  const deleteUserWithId = deleteUser.bind(null, id);
+  const [showModal, setShowModal] = useState(false);
+  return (
+    <>
+      <Button
+        variant="danger"
+        className="btn-icon rounded-circle"
+        type="button"
+        title="Delete User"
+        aria-label={`Delete user ${id}`}
+        onClick={() => setShowModal(true)}
+      >
+        <TbTrash className="fs-lg" />
+      </Button>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this user?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light" className="btn-sm" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <form action={deleteUserWithId} className="d-inline">
+            <Button variant="danger" className="btn-sm" type="submit" onClick={() => setShowModal(false)}>
+              Delete
+            </Button>
+          </form>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 
 export function CreateUserBtn() {
@@ -24,22 +63,6 @@ export function EditUserBtn({ id }: UsersButtonProps) {
         <TbEdit className="fs-lg" />
     </Button>
     </Link>
-  );
-}
-
-export function DeleteUserBtn({ id }: UsersButtonProps) {
-  const deleteUserWithId = deleteUser.bind(null, id);
-  return (
-    <form action={deleteUserWithId} className="d-inline">
-      <Button variant="danger"
-        className="btn-icon rounded-circle"
-        type="submit"
-        title="Delete user"
-        aria-label={`Delete user ${id}`}
-      >
-        <TbTrash  className="fs-lg" />
-      </Button>
-    </form>
   );
 }
 

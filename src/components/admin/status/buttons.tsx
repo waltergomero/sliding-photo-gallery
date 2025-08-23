@@ -1,6 +1,8 @@
+'use client'
+import React, { useState } from "react";
 import Link from "next/link";
 import { deleteStatus } from "@/actions/status-actions";
-import { Button } from "react-bootstrap";
+import { Button, Modal} from "react-bootstrap";
 import { TbArrowRight, TbDotsVertical, TbEdit, TbEye, TbTrash, TbPlus, TbCircle} from 'react-icons/tb';
 
 interface StatusButtonProps {
@@ -29,17 +31,38 @@ export function EditStatusBtn({ id }: StatusButtonProps) {
 
 export function DeleteStatusBtn({ id }: StatusButtonProps) {
   const deleteStatusWithId = deleteStatus.bind(null, id);
+    const [showModal, setShowModal] = useState(false);
   return (
-    <form action={deleteStatusWithId} className="d-inline">
-      <Button variant="danger"
+    <>
+      <Button
+        variant="danger"
         className="btn-icon rounded-circle"
-        type="submit"
+        type="button"
         title="Delete status"
         aria-label={`Delete status ${id}`}
+        onClick={() => setShowModal(true)}
       >
-        <TbTrash  className="fs-lg" />
+        <TbTrash className="fs-lg" />
       </Button>
-    </form>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this status?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light" className="btn-sm"  onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <form action={deleteStatusWithId} className="d-inline">
+            <Button variant="danger" className="btn-sm" type="submit" onClick={() => setShowModal(false)}>
+              Delete
+            </Button>
+          </form>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
 

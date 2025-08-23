@@ -1,10 +1,49 @@
+"use client";
+import React, {useState} from "react";
 import Link from "next/link";
 import { deleteCategory } from "@/actions/category-actions";
-import { Button } from "react-bootstrap";
 import { TbArrowRight, TbDotsVertical, TbEdit, TbEye, TbTrash, TbPlus, TbCircle} from 'react-icons/tb';
+import { Button, Modal } from "react-bootstrap";
 
 interface CategoriesButtonProps {
   id: string;
+}
+
+export function DeleteCategoryBtn({ id }: CategoriesButtonProps) {
+  const deleteCategoryWithId = deleteCategory.bind(null, id);
+  const [showModal, setShowModal] = useState(false);
+  return (
+    <>
+      <Button
+        variant="danger"
+        className="btn-icon rounded-circle"
+        type="button"
+        title="Delete category"
+        aria-label={`Delete category ${id}`}
+        onClick={() => setShowModal(true)}
+      >
+        <TbTrash className="fs-lg" />
+      </Button>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this category?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light" className="btn-sm" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <form action={deleteCategoryWithId} className="d-inline">
+            <Button variant="danger" className="btn-sm"  type="submit" onClick={() => setShowModal(false)}>
+              Delete
+            </Button>
+          </form>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 
 export function CreateCategoryBtn() {
@@ -24,22 +63,6 @@ export function EditCategoryBtn({ id }: CategoriesButtonProps) {
         <TbEdit className="fs-lg" />
     </Button>
     </Link>
-  );
-}
-
-export function DeleteCategoryBtn({ id }: CategoriesButtonProps) {
-  const deleteCategoryWithId = deleteCategory.bind(null, id);
-  return (
-    <form action={deleteCategoryWithId} className="d-inline">
-      <Button variant="danger"
-        className="btn-icon rounded-circle"
-        type="submit"
-        title="Delete category"
-        aria-label={`Delete category ${id}`}
-      >
-        <TbTrash  className="fs-lg" />
-      </Button>
-    </form>
   );
 }
 

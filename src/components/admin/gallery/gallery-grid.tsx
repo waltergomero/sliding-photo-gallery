@@ -1,9 +1,10 @@
 'use client';
 
 import React, {useState, useEffect} from 'react';
-import {DeleteImageBtn, SetImageVisible, SetImageNotVisible, EditImageBtn} from './buttons';
-import {fetchImages, fetchImagesByCategory, fetchCategoriesWithImages } from "@/actions/gallery-actions";
-
+import {DeleteImageBtn,  EditImageBtn} from './buttons';
+import {fetchImages, fetchImagesByCategory, fetchCategoriesWithImages, UpdateImageInformation } from "@/actions/gallery-actions";
+import {Button, Modal} from "react-bootstrap";
+import { fr } from 'zod/v4/locales';
 
 interface GalleryGridProps {
   category_name?: string;
@@ -13,8 +14,33 @@ const GalleryGrid = ({category_name}: GalleryGridProps) => {
   const [categories, setCategories] = useState<any[]>([]);
   const [images, setImages] = useState<any[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalImage, setModalImage] = useState<any>(null);
+  const [newCaption, setNewCaption] = useState("");
 
   const _category_name = category_name ? category_name : "All";
+
+  // Handler to open modal for editing caption
+  const handleEditClick = (image: any) => {
+    setModalImage(image);
+    setNewCaption(image.caption);
+    setShowModal(true);
+  };
+
+  // Handler to update caption (stub, replace with actual update logic)
+  const handleUpdateCaption = async (id: string, caption: string) => {
+    // Create FormData and append required fields
+    const formData = new FormData();
+    formData.append("image_id", id);
+    formData.append("caption", caption);
+    await UpdateImageInformation(formData);
+    setShowModal(false);
+    // Reload images after update
+    const imagesData = await fetchImages(selectedCategory);
+    setImages(imagesData);
+  };
+
+
 
   // Initialize selectedCategory when component mounts or category_name prop changes
   useEffect(() => {
@@ -67,7 +93,7 @@ const GalleryGrid = ({category_name}: GalleryGridProps) => {
             <div
               style={{
                 width: '100%',
-                aspectRatio: '1/1.2', // Adjust for desired portrait/landscape ratio
+                aspectRatio: '1/1.2',
                 overflow: 'hidden',
                 background: '#f8f9fa',
                 display: 'flex',
@@ -77,6 +103,7 @@ const GalleryGrid = ({category_name}: GalleryGridProps) => {
               }}
             >
             <DeleteImageBtn image_id={item.id} image_src={item.src}/>
+            <EditImageBtn id={item.id} onClick={() => handleEditClick(item)}/>
               <img
                 className="img-fluid"
                 src={item.src}
@@ -96,6 +123,42 @@ const GalleryGrid = ({category_name}: GalleryGridProps) => {
         </div>
         ))
         }
+    {/* Modal for editing caption */}
+    {showModal && modalImage && (
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Image Caption</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            <img src={modalImage.src} alt={modalImage.caption} style={{ width: '40%', marginBottom: 12 }} />
+          </div>
+          <input
+             type="text"
+             value={newCaption}
+             onChange={e => setNewCaption(e.target.value)}
+             className="form-control mb-2"  />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light" className="btn-sm" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <form
+            className="d-inline"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              if (modalImage) {
+                await handleUpdateCaption(modalImage.id, newCaption);
+              }
+            }}
+          >
+            <Button variant="primary" className="btn-sm" type="submit">
+              Save
+            </Button>
+          </form>
+        </Modal.Footer>
+      </Modal>
+    )}
     </div>
     </div>
   )

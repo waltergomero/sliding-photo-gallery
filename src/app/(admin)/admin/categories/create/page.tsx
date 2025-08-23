@@ -3,7 +3,7 @@ import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { Col, Container, Row } from 'react-bootstrap';
 import { requireAdmin } from '@/db/auth-guard';
 
-const CreateUserPage = () => {
+const CreateUserPage = async () => {
    await requireAdmin();
   return (
     <>

@@ -52,12 +52,14 @@ export default function Header() {
                 <Button variant="link" className="btn-icon fw-semibold text-body me-2" onClick={toggleTheme}>
                   <TbContrast className="fs-22" />
                 </Button>
-                <Link href="/admin" className="btn btn-link fw-semibold text-body ps-2">
-                  Admin Page
-                </Link>
                 {session ? (
-                  <SignOut />
-                ) : (
+                  <>
+                    <Link href="/admin" className="btn btn-link fw-semibold text-body ps-2">
+                      Admin Page
+                    </Link>
+                    <SignOut />
+                  </>
+                   ) : (
                   <Link href="/signin" className="btn btn-sm btn-primary ms-2">
                     Sign In
                   </Link>

@@ -96,7 +96,7 @@ const SignInPage = () => {
                                         <div className='text-center text-danger mt-2'>{data.message}</div>
                                         )}
 
-                            <p className="text-black text-center mt-4 mb-0">
+                            <p className="text-muted text-center mt-4 mb-0">
                                 New here?{' '}
                                 <Link href="/signup" className="text-secondary text-decoration-underline link-offset-3 fw-semibold">
                                     Create an account
