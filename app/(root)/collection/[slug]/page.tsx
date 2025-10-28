@@ -41,7 +41,7 @@ const GridImagesPage = async ({params}: GridImagesPageProps) => {
     return (
      <Fragment>
     <div className="page-header container-fluid p-0">
-		<div className="row m-0 align-items-center justify-content-center bg-dark ">
+		<div className="row m-0 align-items-center justify-content-center bg-dark" style={{ backgroundColor: '#212529' }}>
 		    <img src="/images/header.png" alt="Header Placeholder" />
 		    <h1 className="h1 position-absolute single-category-title">Collection<small>{collection}</small></h1>
 		</div>
