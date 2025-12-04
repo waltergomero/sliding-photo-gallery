@@ -24,7 +24,7 @@
     "flatpickr": "^4.6.13",
     "heic2any": "^0.0.4",
     "jsvectormap": "^1.7.0",
-    "next": "^15.5.6",
+    "next": "^15.5.7",
     "next-auth": "^5.0.0-beta.29",
     "react": "19.2.0",
     "react-bootstrap": "^2.10.10",
